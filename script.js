@@ -76,8 +76,14 @@ window.addEventListener('scroll', () => {
 });
 
 // ΓöÇΓöÇ MOBILE MENU ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
-document.getElementById('mbtn').onclick  = () => document.getElementById('mmenu').classList.add('open');
-document.getElementById('mclose').onclick = () => document.getElementById('mmenu').classList.remove('open');
+document.getElementById('mbtn').onclick = () => {
+  document.getElementById('mmenu').classList.add('open');
+  document.getElementById('mbtn').classList.add('open');
+};
+document.getElementById('mclose').onclick = () => {
+  document.getElementById('mmenu').classList.remove('open');
+  document.getElementById('mbtn').classList.remove('open');
+};
 function cm() { document.getElementById('mmenu').classList.remove('open'); }
 
 // ΓöÇΓöÇ SMOOTH SCROLL ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
