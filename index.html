@@ -417,6 +417,44 @@ body{background:#05050f;color:#b0b0cc;font-family:'Space Grotesk',sans-serif;ove
 .proj-card:hover .proj-counter {
   color: rgba(124,58,237,0.12);
 }
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width:768px) {
+  .wrap { padding: 0 1.2rem !important; }
+  #nav { padding: 0 1.2rem !important; height: 64px; }
+  section { padding: 56px 0 !important; }
+  #h-term { display: none !important; }
+  #h-sub { font-size: 0.95rem !important; max-width: 100% !important; }
+  #h-btns { flex-wrap: wrap !important; gap: 10px !important; }
+  .btn-grad, .btn-outline { padding: 11px 20px !important; font-size: 11px !important; }
+  #about .grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  #about-badge { display: none !important; }
+  #skillbars > div { flex-direction: column !important; gap: 20px !important; }
+  #sk-row { grid-template-columns: repeat(2,1fr) !important; gap: 12px !important; }
+  .proj-card { grid-template-columns: 1fr !important; }
+  .proj-card .proj-img { min-height: 180px !important; order: -1; }
+  #stats .wrap > div { grid-template-columns: repeat(2,1fr) !important; gap: 12px !important; }
+  #process-steps { grid-template-columns: repeat(2,1fr) !important; gap: 20px !important; }
+  #process-line { display: none !important; }
+  #services > div > div:last-child { grid-template-columns: 1fr !important; }
+  #testimonials > div > div:last-child { grid-template-columns: 1fr !important; }
+  #cta .wrap > div { padding: 40px 20px !important; }
+  #contact > div > div:last-child { grid-template-columns: 1fr !important; gap: 24px !important; }
+  #cform > div { grid-template-columns: 1fr !important; }
+  footer > div { flex-direction: column !important; text-align: center; gap: 12px; }
+  .dh { font-size: clamp(1.9rem,6vw,2.8rem) !important; }
+  .gb-inner { padding: 20px !important; }
+  #timeline { padding-left: 28px !important; }
+  .rv, .rl, .rr { opacity: 1 !important; transform: none !important; }
+  .sk-card { opacity: 1 !important; transform: none !important; }
+}
+@media (max-width:480px) {
+  #sk-row { grid-template-columns: 1fr !important; }
+  #process-steps { grid-template-columns: 1fr !important; }
+  #h-btns { flex-direction: column !important; }
+  .btn-grad, .btn-outline { width: 100% !important; justify-content: center !important; }
+  .stats-grid, #stats .wrap > div { grid-template-columns: repeat(2,1fr) !important; }
+}
 </style>
 </head>
 <body>
