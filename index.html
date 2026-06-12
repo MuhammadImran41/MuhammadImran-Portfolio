@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Husnain Raza — Full Stack & AI Developer</title>
+<meta name="description" content="Husnain Raza — Full Stack & AI Developer. Building intelligent systems for real-world impact."/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.cdnfonts.com/css/clash-display" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: {
+      ink: '#05050f', surface: '#0a0a18', card: '#0f0f20',
+      border: '#1a1a35', violet: '#7c3aed', vl: '#a78bfa',
+      cyan: '#06b6d4', cl: '#67e8f9', muted: '#555577', body: '#b0b0cc'
+    },
+    fontFamily: { display: ['Space Grotesk','sans-serif'], mono: ['JetBrains Mono','monospace'], body: ['Space Grotesk','sans-serif'] }
+  }}
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#05050f;color:#b0b0cc;font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+::selection{background:rgba(124,58,237,.35);color:#fff}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:#05050f}
+::-webkit-scrollbar-thumb{background:linear-gradient(#7c3aed,#06b6d4);border-radius:3px}
+
+/* ── CANVAS ── */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0 clamp(1rem,3vw,3rem);height:70px;display:flex;align-items:center;justify-content:space-between;transition:.4s}
+#nav.solid{background:rgba(5,5,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid #1a1a35}
+.nav-link{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.15em;color:#555577;transition:color .2s;text-decoration:none}
+.nav-link:hover{color:#fff}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.nav-logo span{color:#7c3aed}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.1em;border-radius:8px;cursor:pointer;transition:.25s;text-decoration:none;border:none;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.06);opacity:0;transition:.2s}
+.btn:hover::after{opacity:1}
+.btn-grad{padding:13px 28px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(124,58,237,.35)}
+.btn-outline{padding:12px 26px;background:transparent;color:#b0b0cc;border:1px solid #1a1a35}
+.btn-outline:hover{border-color:rgba(124,58,237,.6);color:#fff;transform:translateY(-2px)}
+
+/* ── GRADIENT TEXT ── */
+.gt{background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gt2{background:linear-gradient(135deg,#7c3aed,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── SECTION WRAPPER ── */
+.wrap{max-width:1400px;margin:0 auto;padding:0 clamp(1rem,3vw,3rem)}
+
+/* ── SECTION LABEL ── */
+.slabel{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.35em;color:#7c3aed;text-transform:uppercase;display:block;margin-bottom:16px}
+
+/* ── DISPLAY HEADING ── */
+.dh{font-family:'Space Grotesk',sans-serif;font-weight:800;line-height:.9;letter-spacing:-.02em;color:#fff}
+
+/* ── GLOW DIVIDER ── */
+.gdiv{height:1px;background:linear-gradient(90deg,transparent,rgba(124,58,237,.5),rgba(6,182,212,.5),transparent);margin:0}
+
+/* ── CARD ── */
+.gcard{background:#0f0f20;border:1px solid #1a1a35;border-radius:20px;transition:.35s cubic-bezier(.22,1,.36,1)}
+.gcard:hover{border-color:rgba(124,58,237,.4);transform:translateY(-5px);box-shadow:0 30px 80px rgba(124,58,237,.12)}
+
+/* ── TILT ── */
+.tilt{transform-style:preserve-3d;transition:transform .1s linear}
+
+/* ── PILL ── */
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;border:1px solid;transition:.2s}
+.pv{background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.35);color:#a78bfa}
+.pc{background:rgba(6,182,212,.08);border-color:rgba(6,182,212,.3);color:#67e8f9}
+.pill:hover{transform:translateY(-2px) scale(1.05)}
+
+/* ── SKILL BAR ── */
+.strack{height:2px;background:#1a1a35;border-radius:99px;overflow:hidden;position:relative}
+.sfill{height:100%;border-radius:99px;width:0;position:relative;transition:width 1.6s cubic-bezier(.22,1,.36,1)}
+.sfill::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:#67e8f9;box-shadow:0 0 10px #67e8f9}
+
+/* ── SKILL CARD HOVER GLOW ── */
+#skills .gcard{transition:border-color .3s,box-shadow .3s}
+#skills .gcard:hover{border-color:rgba(124,58,237,.5);box-shadow:0 8px 40px rgba(124,58,237,.12)}
+
+/* ── CHIP HOVER ── */
+.chip{transition:all .2s cubic-bezier(.22,1,.36,1)}
+.chip:hover{background:rgba(124,58,237,.2);border-color:rgba(124,58,237,.5);color:#fff;transform:translateY(-2px) scale(1.04)}
+
+/* ── TECH CHIP ── */
+.chip{padding:7px 14px;background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.18);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;text-align:center;cursor:default;transition:.2s}
+.chip:hover{background:rgba(124,58,237,.16);border-color:rgba(124,58,237,.5);color:#fff;transform:translateY(-2px)}
+
+/* ── TIMELINE ── */
+.tl-line {
+  position: absolute;
+  left: 7px;
+  top: 12px;
+  bottom: 48px;
+  width: 2px;
+  background: linear-gradient(to bottom, #7c3aed, #06b6d4, transparent);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+.tl-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #7c3aed;
+  background: #05050f;
+  flex-shrink: 0;
+  transition: background .3s, box-shadow .3s;
+  position: relative;
+  z-index: 2;
+}
+.tl-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(124,58,237,.15);
+}
+.tl-item:hover .tl-dot {
+  background: #7c3aed;
+  box-shadow: 0 0 16px rgba(124,58,237,.5);
+}
+
+/* ── FORM ── */
+.finput{width:100%;background:#0f0f20;border:1px solid #1a1a35;border-radius:10px;padding:14px 16px;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;transition:.3s}
+.finput::placeholder{color:#2a2a4a}
+.finput:focus{border-color:rgba(124,58,237,.6);box-shadow:0 0 0 3px rgba(124,58,237,.1)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(40px)}
+.rl{opacity:0;transform:translateX(-40px)}
+.rr{opacity:0;transform:translateX(40px)}
+
+/* ── TYPEWRITER ── */
+#tw::after{content:'▋';animation:blink .8s infinite;color:#7c3aed;margin-left:2px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── MOBILE MENU ── */
+#mmenu{display:none;position:fixed;inset:0;background:rgba(5,5,15,.97);backdrop-filter:blur(30px);z-index:49;flex-direction:column;align-items:center;justify-content:center;gap:44px}
+#mmenu.open{display:flex}
+
+/* ── PROJECT CARD ── */
+.pcard{background:#0f0f20;border:1px solid #1a1a35;border-radius:20px;overflow:hidden;transition:.4s cubic-bezier(.22,1,.36,1)}
+.pcard:hover{border-color:rgba(124,58,237,.5);transform:translateY(-6px);box-shadow:0 40px 100px rgba(124,58,237,.15)}
+.pcard-img{height:220px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pcard-img::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,#0f0f20);z-index:1}
+
+/* ── NUMBER COUNTER ── */
+.counter{font-family:'Space Grotesk',sans-serif;font-weight:800;color:#fff}
+
+/* ── FLOATING ORBS ── */
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;animation:orbFloat 8s ease-in-out infinite}
+@keyframes orbFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+
+/* ── SCROLL INDICATOR ── */
+@keyframes scrollDrop{0%{opacity:0;transform:translateY(-8px)}50%{opacity:1}100%{opacity:0;transform:translateY(8px)}}
+.scroll-dot{width:4px;height:4px;border-radius:50%;background:#7c3aed;animation:scrollDrop 1.6s ease-in-out infinite}
+
+/* ── GRADIENT BORDER CARD ── */
+.gb-wrap{position:relative;border-radius:20px;padding:1px;background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(6,182,212,.2))}
+.gb-inner{background:#0f0f20;border-radius:19px}
+
+/* ── HERO RING ── */
+@keyframes spin-slow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes spin-rev{from{transform:rotate(0)}to{transform:rotate(-360deg)}}
+.ring1{animation:spin-slow 20s linear infinite}
+.ring2{animation:spin-rev 15s linear infinite}
+
+/* ── AVATAR FLOAT ── */
+@keyframes avatar-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+#avatar-wrap{animation:avatar-float 5s ease-in-out infinite}
+
+/* ── PROCESS SECTION ── */
+@keyframes ping-proc {
+  0%   { transform: scale(1);   opacity: .6; }
+  100% { transform: scale(1.6); opacity: 0;  }
+}
+.proc-circle:hover {
+  border-color: rgba(124,58,237,.9) !important;
+  box-shadow: 0 0 24px rgba(124,58,237,.4);
+  transform: scale(1.08);
+}
+.process-step {
+  transition: transform .3s ease;
+}
+.scard{background:#0f0f20;border:1px solid #1a1a35;border-radius:16px;padding:24px;text-align:center;transition:.3s}
+.scard:hover{border-color:rgba(124,58,237,.4);box-shadow:0 20px 60px rgba(124,58,237,.1)}#about .rr { perspective: 1000px; }
+
+#about-card {
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.4s ease;
+}
+#about-card:hover {
+  box-shadow: 0 50px 120px rgba(124,58,237,.25),
+              0 0 0 1px rgba(124,58,237,.2);
+  transform: translateY(-6px) rotateX(2deg);
+}
+
+/* HR avatar spin-glow on hover */
+#about-avatar {
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.4s ease;
+}
+#about-card:hover #about-avatar {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 36px rgba(124,58,237,.6);
+}
+
+/* Stat numbers count-up glow */
+.about-stat {
+  transition: background 0.3s;
+  cursor: default;
+}
+.about-stat:hover {
+  background: rgba(124,58,237,.08);
+}
+.about-stat:hover .stat-num-text {
+  filter: drop-shadow(0 0 12px rgba(167,139,250,.8));
+}
+
+/* Info tiles hover */
+.about-tile {
+  transition: transform 0.25s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.25s,
+              background 0.25s,
+              box-shadow 0.25s;
+  cursor: default;
+}
+.about-tile:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 28px rgba(124,58,237,.15);
+}
+.about-tile.v:hover {
+  border-color: rgba(124,58,237,.45);
+  background: rgba(124,58,237,.12);
+}
+.about-tile.c:hover {
+  border-color: rgba(6,182,212,.45);
+  background: rgba(6,182,212,.1);
+}
+
+/* Floating badge pulse */
+#about-badge {
+  animation: badge-float 3s ease-in-out infinite;
+  transition: box-shadow 0.3s;
+}
+#about-badge:hover {
+  box-shadow: 0 12px 40px rgba(124,58,237,.4);
+}
+@keyframes badge-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+/* Available pill pulse ring */
+#avail-pill {
+  position: relative;
+}
+#avail-pill::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 20px;
+  border: 1px solid rgba(52,211,153,.3);
+  animation: pill-ping 2s ease-out infinite;
+}
+@keyframes pill-ping {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
+/* ── PROJECT CARDS ENHANCED ── */
+.proj-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+}
+.proj-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124,58,237,0.04), rgba(6,182,212,0.02));
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: 0;
+  pointer-events: none;
+}
+.proj-card:hover::before { opacity: 1; }
+.proj-card:hover {
+  border-color: rgba(124,58,237,0.45);
+  box-shadow: 0 30px 80px rgba(124,58,237,0.18),
+              0 0 0 1px rgba(124,58,237,0.12);
+  transform: translateY(-4px);
+}
+
+/* Image side shine sweep */
+.proj-img {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.proj-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg,
+    transparent 40%,
+    rgba(255,255,255,0.04) 50%,
+    transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+.proj-card:hover .proj-img::after {
+  transform: translateX(100%);
+}
+.proj-card:hover .proj-img {
+  background-size: 110%;
+}
+
+/* Icon bounce on hover */
+.proj-icon {
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.4s ease;
+}
+.proj-card:hover .proj-icon {
+  transform: scale(1.12) translateY(-4px);
+  box-shadow: 0 12px 40px rgba(124,58,237,0.4);
+}
+
+/* Number label hover */
+.proj-num {
+  transition: color 0.3s, letter-spacing 0.3s;
+}
+.proj-card:hover .proj-num {
+  color: #a78bfa;
+  letter-spacing: .3em;
+}
+
+/* Tag chips animate in */
+.proj-card .pill {
+  transition: transform 0.2s ease, background 0.2s, border-color 0.2s;
+}
+.proj-card:hover .pill {
+  transform: translateY(-1px);
+}
+
+/* Glowing left/right border accent */
+.proj-card .acc-line {
+  position: absolute;
+  top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, transparent, #7c3aed, #06b6d4, transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.proj-card:hover .acc-line { opacity: 1; }
+
+/* View btn on hover */
+.proj-btn {
+  position: relative;
+  overflow: hidden;
+}
+.proj-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+  border-radius: 8px;
+}
+.proj-card:hover .proj-btn::after { opacity: 1; }
+.proj-card:hover .proj-btn {
+  color: #fff;
+  border-color: transparent;
+}
+.proj-btn span { position: relative; z-index: 1; }
+
+/* Mini cards */
+.mini-card {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.3s, box-shadow 0.3s;
+}
+.mini-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(124,58,237,0.45);
+  box-shadow: 0 20px 60px rgba(124,58,237,0.14);
+}
+
+/* Number counter on project cards */
+.proj-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 56px;
+  font-weight: 700;
+  color: rgba(124,58,237,0.06);
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.4s;
+  user-select: none;
+}
+.proj-card:hover .proj-counter {
+  color: rgba(124,58,237,0.12);
+}
+</style>
+</head>
+<body>
+
+<!-- Particle canvas -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- ═══════ NAV ═══════ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">HR<span>.</span></a>
+  <div class="hidden md:flex items-center gap-8">
+    <a href="#about"        class="nav-link">ABOUT</a>
+    <a href="#services"     class="nav-link">SERVICES</a>
+    <a href="#skills"       class="nav-link">SKILLS</a>
+    <a href="#projects"     class="nav-link">WORK</a>
+    <a href="#experience"   class="nav-link">JOURNEY</a>
+    <a href="#testimonials" class="nav-link">REVIEWS</a>
+    <a href="#contact"      class="nav-link">CONTACT</a>
+  </div>
+  <a href="mailto:mhsnraza3718@gmail.com" class="hidden md:inline-flex btn btn-grad">HIRE ME</a>
+  <button id="mbtn" class="md:hidden text-white p-2" aria-label="Menu">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mmenu">
+  <button id="mclose" class="absolute top-7 right-7 text-white">
+    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="#about"        onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">ABOUT</a>
+  <a href="#services"     onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">SERVICES</a>
+  <a href="#skills"       onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">SKILLS</a>
+  <a href="#projects"     onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">WORK</a>
+  <a href="#experience"   onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">JOURNEY</a>
+  <a href="#testimonials" onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">REVIEWS</a>
+  <a href="#contact"      onclick="cm()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:800">CONTACT</a>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden" style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(124,58,237,.18) 0%,transparent 60%)">
+
+  <!-- Orbs -->
+  <div class="orb" style="width:600px;height:600px;background:rgba(124,58,237,.1);top:-200px;left:-150px;animation-delay:0s"></div>
+  <div class="orb" style="width:400px;height:400px;background:rgba(6,182,212,.07);bottom:-100px;right:-100px;animation-delay:3s"></div>
+
+  <!-- Grid lines -->
+  <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(124,58,237,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.05) 1px,transparent 1px);background-size:80px 80px"></div>
+
+  <div class="wrap relative z-10 w-full pt-28 pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      <!-- Text col -->
+      <div class="lg:col-span-7 space-y-8">
+
+        <div id="h-badge" style="opacity:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span class="pill pv">
+            <span style="width:7px;height:7px;border-radius:50%;background:#7c3aed;display:inline-block;animation:blink .8s infinite"></span>
+            Open to opportunities
+          </span>
+          <!-- Social links -->
+          <div style="display:flex;gap:10px">
+            <a href="mailto:mhsnraza3718@gmail.com" title="Email" style="width:34px;height:34px;border-radius:8px;background:#0f0f20;border:1px solid #1a1a35;display:flex;align-items:center;justify-content:center;transition:.2s;color:#555577;text-decoration:none" onmouseover="this.style.borderColor='rgba(124,58,237,.6)';this.style.color='#a78bfa'" onmouseout="this.style.borderColor='#1a1a35';this.style.color='#555577'">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <a href="https://github.com/MhsnRaza" target="_blank" title="GitHub" style="width:34px;height:34px;border-radius:8px;background:#0f0f20;border:1px solid #1a1a35;display:flex;align-items:center;justify-content:center;transition:.2s;color:#555577;text-decoration:none" onmouseover="this.style.borderColor='rgba(6,182,212,.6)';this.style.color='#67e8f9'" onmouseout="this.style.borderColor='#1a1a35';this.style.color='#555577'">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" title="LinkedIn" style="width:34px;height:34px;border-radius:8px;background:#0f0f20;border:1px solid #1a1a35;display:flex;align-items:center;justify-content:center;transition:.2s;color:#555577;text-decoration:none" onmouseover="this.style.borderColor='rgba(124,58,237,.6)';this.style.color='#a78bfa'" onmouseout="this.style.borderColor='#1a1a35';this.style.color='#555577'">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div id="h-head" style="opacity:0;transform:translateY(30px)">
+          <p class="slabel">FULL STACK & AI DEVELOPER</p>
+          <h1 class="dh" style="font-size:clamp(2rem,4vw,3.2rem)">
+            Hi, I'm<br/><span class="gt">Husnain</span><br/>Raza
+          </h1>
+        </div>
+
+        <p id="h-sub" style="opacity:0;transform:translateY(20px);font-size:1.05rem;line-height:1.8;max-width:500px;color:#b0b0cc">
+          Building intelligent systems that ship to production —
+          <span id="tw" style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#a78bfa"></span>
+        </p>
+
+        <div id="h-btns" style="opacity:0;display:flex;gap:16px;flex-wrap:wrap">
+          <a href="#projects" class="btn btn-grad"><span>See My Work</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">Get In Touch</a>
+        </div>
+
+
+      </div>
+
+      <!-- Right: Avatar + terminal -->
+      <div id="h-term" class="lg:col-span-5 hidden lg:flex flex-col gap-5" style="opacity:0;transform:translateX(40px)">
+
+        <!-- Terminal card only -->
+        <div class="gb-wrap" style="box-shadow:0 40px 120px rgba(124,58,237,.22)">
+          <div class="gb-inner" style="padding:24px 28px">
+
+            <!-- Top bar -->
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #1a1a35">
+              <div style="width:12px;height:12px;border-radius:50%;background:rgba(239,68,68,.7)"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:rgba(234,179,8,.7)"></div>
+              <div style="width:12px;height:12px;border-radius:50%;background:rgba(34,197,94,.7)"></div>
+              <span style="margin-left:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#555577">husnain@portfolio ~ $</span>
+            </div>
+
+            <!-- Terminal lines -->
+            <div style="font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2;display:flex;flex-direction:column;gap:2px">
+
+              <div class="tl" style="opacity:0"><span style="color:#a78bfa">❯</span> <span style="color:#555577">cat about.json</span></div>
+              <div class="tl" style="opacity:0;padding-left:16px;color:#1a1a35">{</div>
+              <div class="tl" style="opacity:0;padding-left:32px"><span style="color:#a78bfa">"name"</span><span style="color:#555577">:</span> <span style="color:#67e8f9">"Husnain Raza"</span></div>
+              <div class="tl" style="opacity:0;padding-left:32px"><span style="color:#a78bfa">"role"</span><span style="color:#555577">:</span> <span style="color:#67e8f9">"Full Stack & AI Dev"</span></div>
+              <div class="tl" style="opacity:0;padding-left:32px"><span style="color:#a78bfa">"location"</span><span style="color:#555577">:</span> <span style="color:#67e8f9">"Lahore, Pakistan"</span></div>
+              <div class="tl" style="opacity:0;padding-left:32px"><span style="color:#a78bfa">"stack"</span><span style="color:#555577">:</span> <span style="color:#67e8f9">["Angular","FastAPI","PyTorch"]</span></div>
+              <div class="tl" style="opacity:0;padding-left:32px"><span style="color:#a78bfa">"available"</span><span style="color:#555577">:</span> <span style="color:#34d399">true</span></div>
+              <div class="tl" style="opacity:0;padding-left:16px;color:#1a1a35">}</div>
+
+              <div class="tl" style="opacity:0;margin-top:8px"><span style="color:#67e8f9">❯</span> <span style="color:#555577">./status.sh</span></div>
+              <div class="tl" style="opacity:0;padding-left:16px"><span style="color:#34d399">✓</span> <span style="color:#b0b0cc">Systems online</span></div>
+              <div class="tl" style="opacity:0;padding-left:16px"><span style="color:#34d399">✓</span> <span style="color:#b0b0cc">Ready to ship</span></div>
+              <div class="tl" style="opacity:0;padding-left:16px"><span style="color:#34d399">✓</span> <span style="color:#b0b0cc">CGPA: 3.09</span></div>
+
+              <div class="tl" style="opacity:0;margin-top:8px;display:flex;align-items:center;gap:8px">
+                <span style="color:#a78bfa">❯</span>
+                <span style="width:8px;height:16px;background:#7c3aed;display:inline-block;animation:blink .8s infinite;vertical-align:middle;border-radius:1px"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.5">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.3em;color:#555577">SCROLL</span>
+    <div style="width:1px;height:50px;background:linear-gradient(#7c3aed,transparent)"></div>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section id="about" style="padding:80px 0">
+  <div class="wrap">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <!-- LEFT: Text + heading -->
+      <div class="rl" style="display:flex;flex-direction:column;gap:24px">
+        <div>
+          <span class="slabel">// ABOUT_ME</span>
+          <h2 class="dh" style="font-size:clamp(2.2rem,4.5vw,4rem);margin-top:12px;line-height:1.05">
+            Engineer by<br/><span class="gt">Instinct.</span>
+          </h2>
+        </div>
+
+        <p style="color:#b0b0cc;line-height:1.85;font-size:1rem;max-width:460px;border-left:2px solid rgba(124,58,237,.4);padding-left:16px">
+          Full Stack & AI Developer obsessed with clean architecture and intelligent systems. I don't just write code — I engineer solutions that survive production.
+        </p>
+
+        <p style="color:#b0b0cc;line-height:1.85;font-size:.95rem;max-width:460px">
+          Three internships deep — from CCTV AI surveillance to hyper-scalable e-commerce engines. Still accelerating.
+        </p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <span class="pill pv">Full Stack</span>
+          <span class="pill pc">AI Engineer</span>
+          <span class="pill pv">System Design</span>
+          <span class="pill pc">Problem Solver</span>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="#contact" class="btn btn-grad"><span>Work With Me</span></a>
+          <a href="#projects" class="btn btn-outline">See My Work →</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Card -->
+      <div class="rr">
+        <div style="position:relative">
+          <div class="gb-wrap" id="about-card" style="box-shadow:0 40px 100px rgba(124,58,237,.18)">
+            <div class="gb-inner" style="padding:32px">
+
+              <!-- Profile row -->
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+                <div id="about-avatar" style="width:56px;height:56px;border-radius:14px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 20px rgba(124,58,237,.2)">
+                  <svg width="26" height="26" fill="none" stroke="#a78bfa" stroke-width="1.5" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div style="flex:1">
+                  <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff">Husnain Raza</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577;margin-top:3px">Full Stack & AI Developer</div>
+                </div>
+                <div id="avail-pill" style="display:flex;align-items:center;gap:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:20px;padding:5px 10px;flex-shrink:0">
+                  <span style="width:6px;height:6px;border-radius:50%;background:#34d399;display:inline-block;animation:blink .8s infinite"></span>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#34d399">Available</span>
+                </div>
+              </div>
+
+              <div class="gdiv" style="margin-bottom:20px"></div>
+
+              <!-- Stats row -->
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #1a1a35;border-radius:12px;overflow:hidden;margin-bottom:20px">
+                <div class="about-stat" style="padding:16px;text-align:center;border-right:1px solid #1a1a35">
+                  <div class="stat-num-text" style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">4+</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.12em;margin-top:4px">YEARS</div>
+                </div>
+                <div class="about-stat" style="padding:16px;text-align:center;border-right:1px solid #1a1a35">
+                  <div class="stat-num-text" style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">20+</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.12em;margin-top:4px">TECHS</div>
+                </div>
+                <div class="about-stat" style="padding:16px;text-align:center">
+                  <div class="stat-num-text" style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3</div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.12em;margin-top:4px">INTERNSHIPS</div>
+                </div>
+              </div>
+
+              <!-- Info grid -->
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div class="about-tile v" style="padding:12px 14px;border-radius:10px;background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.15);display:flex;align-items:center;gap:10px">
+                  <svg width="14" height="14" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.15em">LOCATION</div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-top:2px">Lahore, PK</div>
+                  </div>
+                </div>
+                <div class="about-tile c" style="padding:12px 14px;border-radius:10px;background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.15);display:flex;align-items:center;gap:10px">
+                  <svg width="14" height="14" fill="none" stroke="#67e8f9" stroke-width="2" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                  <div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.15em">UNIVERSITY</div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-top:2px">Univ. of Lahore</div>
+                  </div>
+                </div>
+                <div class="about-tile v" style="padding:12px 14px;border-radius:10px;background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.15);display:flex;align-items:center;gap:10px">
+                  <svg width="14" height="14" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  <div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.15em">CGPA</div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-top:2px">3.09 / 4.0</div>
+                  </div>
+                </div>
+                <div class="about-tile c" style="padding:12px 14px;border-radius:10px;background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.15);display:flex;align-items:center;gap:10px">
+                  <svg width="14" height="14" fill="none" stroke="#67e8f9" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+                  <div>
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#555577;letter-spacing:.15em">FOCUS</div>
+                    <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-top:2px">AI + Full Stack</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Floating badge -->
+          <div id="about-badge" style="position:absolute;bottom:-16px;right:-16px;background:#0f0f20;border:1px solid rgba(124,58,237,.3);border-radius:14px;padding:10px 16px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 32px rgba(124,58,237,.2)">
+            <svg width="14" height="14" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#a78bfa">Open to opportunities</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<div class="gdiv"></div>
+
+<!-- ═══════ SERVICES ═══════ -->
+<section id="services" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:48px">
+      <span class="slabel">// WHAT_I_DO</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">My <span class="gt">Services</span></h2>
+      <p style="color:#b0b0cc;margin-top:16px;max-width:480px;line-height:1.7">End-to-end solutions from idea to production.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+
+      <div class="gcard p-7 rv tilt" style="border-top:2px solid #7c3aed">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" fill="none" stroke="#a78bfa" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:10px">Full Stack Web</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7;margin-bottom:16px">End-to-end web apps — Angular, React, Next.js on the front; Python, Node.js, FastAPI on the back.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill pv" style="font-size:9px">Angular</span><span class="pill pc" style="font-size:9px">React</span><span class="pill pv" style="font-size:9px">Node.js</span></div>
+      </div>
+
+      <div class="gcard p-7 rv tilt" style="border-top:2px solid #06b6d4">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" fill="none" stroke="#67e8f9" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:10px">AI Integration</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7;margin-bottom:16px">LLM pipelines, computer vision, NLP automation — embedding AI into real products that scale.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill pc" style="font-size:9px">LangChain</span><span class="pill pv" style="font-size:9px">PyTorch</span><span class="pill pc" style="font-size:9px">OpenCV</span></div>
+      </div>
+
+      <div class="gcard p-7 rv tilt" style="border-top:2px solid #7c3aed">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" fill="none" stroke="#a78bfa" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:10px">Backend & APIs</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7;margin-bottom:16px">Scalable REST/GraphQL APIs, microservices, database design — built for high concurrency and zero downtime.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill pv" style="font-size:9px">FastAPI</span><span class="pill pc" style="font-size:9px">PostgreSQL</span><span class="pill pv" style="font-size:9px">Redis</span></div>
+      </div>
+
+      <div class="gcard p-7 rv tilt" style="border-top:2px solid #06b6d4">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" fill="none" stroke="#67e8f9" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:10px">Auth & Security</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7;margin-bottom:16px">JWT, SSO, OAuth2, multi-tenant architecture — secure authentication systems built to enterprise standards.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill pc" style="font-size:9px">JWT</span><span class="pill pv" style="font-size:9px">OAuth2</span><span class="pill pc" style="font-size:9px">SSO</span></div>
+      </div>
+
+      <div class="gcard p-7 rv tilt" style="border-top:2px solid #7c3aed">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" fill="none" stroke="#a78bfa" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 10l5 5 5-5"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:10px">DevOps & Cloud</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7;margin-bottom:16px">CI/CD pipelines, Docker containerisation, AWS deployments — production infrastructure that just works.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill pv" style="font-size:9px">Docker</span><span class="pill pc" style="font-size:9px">AWS</span><span class="pill pv" style="font-size:9px">CI/CD</span></div>
+      </div>
+
+      <div class="gcard p-7 rv tilt" style="border-top:2px solid #06b6d4">
+        <div style="width:48px;height:48px;border-radius:12px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" fill="none" stroke="#67e8f9" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:10px">Performance Opt.</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7;margin-bottom:16px">Query optimisation, caching strategies, load testing — turning slow apps into sub-100ms experiences.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="pill pc" style="font-size:9px">Redis</span><span class="pill pv" style="font-size:9px">Profiling</span><span class="pill pc" style="font-size:9px">CDN</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+<!-- ═══════ SKILLS ═══════ -->
+<section id="skills" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:40px">
+      <span class="slabel">// SKILL_MATRIX</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">Tech <span class="gt">Arsenal</span></h2>
+      <p style="color:#b0b0cc;margin-top:16px;max-width:500px;line-height:1.7">Production-tested across real enterprise projects.</p>
+    </div>
+
+    <!-- ROW 1: Full Stack full width -->
+    <div style="margin-bottom:16px" id="skillbars">
+      <div class="gcard" style="padding:32px 36px;border-top:2px solid #7c3aed">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="20" height="20" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff">Full Stack Development</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <span class="chip">Angular</span>
+          <span class="chip">React</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Python</span>
+          <span class="chip">FastAPI</span>
+          <span class="chip">Node.js</span>
+          <span class="chip">Tailwind CSS</span>
+          <span class="chip">HTML / CSS</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: 5 cards -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px" id="sk-row">
+
+      <div class="gcard sk-card" style="padding:24px 20px;border-top:2px solid #06b6d4">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#67e8f9" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Backend</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <span class="chip" style="font-size:11px;padding:6px 12px">FastAPI</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">Node.js</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">REST / GraphQL</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">Express.js</span>
+        </div>
+      </div>
+
+      <div class="gcard sk-card" style="padding:24px 20px;border-top:2px solid #7c3aed">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">AI / ML</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <span class="chip" style="font-size:11px;padding:6px 12px">LangChain</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">PyTorch</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">OpenCV</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">NLP / CV</span>
+        </div>
+      </div>
+
+      <div class="gcard sk-card" style="padding:24px 20px;border-top:2px solid #06b6d4">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#67e8f9" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Database</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <span class="chip" style="font-size:11px;padding:6px 12px">PostgreSQL</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">MongoDB</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">Redis</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">MySQL</span>
+        </div>
+      </div>
+
+      <div class="gcard sk-card" style="padding:24px 20px;border-top:2px solid #7c3aed">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 10l5 5 5-5"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">DevOps</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <span class="chip" style="font-size:11px;padding:6px 12px">Docker</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">AWS</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">CI/CD</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">Git / GitHub</span>
+        </div>
+      </div>
+
+      <div class="gcard sk-card" style="padding:24px 20px;border-top:2px solid #06b6d4">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="16" height="16" fill="none" stroke="#67e8f9" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Security</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <span class="chip" style="font-size:11px;padding:6px 12px">JWT / OAuth2</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">SSO</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">HTTPS / SSL</span>
+          <span class="chip" style="font-size:11px;padding:6px 12px">Role-Based Auth</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="gdiv"></div>
+
+<!-- ═══════ PROJECTS ═══════ -->
+<section id="projects" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:48px">
+      <span class="slabel" style="display:block">// SHIPPED_PRODUCTS</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">Project <span class="gt">Vault</span></h2>
+      <p style="color:#b0b0cc;margin-top:16px;max-width:560px;line-height:1.7">Real products. Real users. Real impact.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:24px">
+
+      <!-- P1: pic LEFT, details RIGHT -->
+      <div class="gcard proj-card rl tilt" style="display:grid;grid-template-columns:1fr 1fr;min-height:300px;overflow:hidden;position:relative"><div class="proj-counter">01</div><div class="acc-line" style="right:0"></div>
+        <!-- Image left -->
+        <div class="proj-img" style="background:linear-gradient(135deg,rgba(124,58,237,.25),rgba(6,182,212,.15));display:flex;align-items:center;justify-content:center;position:relative;min-height:300px">
+          <div style="text-align:center;position:relative;z-index:2">
+            <div class="proj-icon" style="width:72px;height:72px;margin:0 auto 14px;border-radius:18px;background:rgba(124,58,237,.3);border:1px solid rgba(124,58,237,.5);display:flex;align-items:center;justify-content:center">
+              <svg width="32" height="32" fill="none" stroke="#a78bfa" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.9L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577;letter-spacing:.2em">AI_SURVEILLANCE</div>
+          </div>
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px);pointer-events:none"></div>
+          <div style="position:absolute;right:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(124,58,237,.4),transparent)"></div>
+        </div>
+        <!-- Details right -->
+        <div style="padding:40px 36px;display:flex;flex-direction:column;justify-content:center">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;letter-spacing:.2em">01 // SEC_OPS</span>
+            <span class="pill pv" style="font-size:9px;padding:3px 10px">AI Vision</span>
+          </div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-.02em;line-height:1.1">CCTV GuardAI</h3>
+          <p style="color:#b0b0cc;font-size:14px;line-height:1.75;margin-bottom:22px">Military-grade computer vision platform. Transforms CCTV feeds into real-time threat detection with neural alerting and predictive security matrices.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+            <span class="pill pv">PyTorch</span><span class="pill pc">OpenCV</span><span class="pill pv">FastAPI</span><span class="pill pc">Docker</span>
+          </div>
+          <div><a href="#" class="btn btn-outline proj-btn" style="font-size:11px;padding:10px 22px"><span>View Project →</span></a></div>
+        </div>
+      </div>
+
+      <!-- P2: details LEFT, pic RIGHT -->
+      <div class="gcard proj-card rr tilt" style="display:grid;grid-template-columns:1fr 1fr;min-height:300px;overflow:hidden;position:relative"><div class="proj-counter">02</div><div class="acc-line" style="left:0"></div>
+        <!-- Details left -->
+        <div style="padding:40px 36px;display:flex;flex-direction:column;justify-content:center">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#06b6d4;letter-spacing:.2em">02 // E_COM</span>
+            <span class="pill pc" style="font-size:9px;padding:3px 10px">Commerce</span>
+          </div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-.02em;line-height:1.1">GlowMart</h3>
+          <p style="color:#b0b0cc;font-size:14px;line-height:1.75;margin-bottom:22px">Hyper-optimized marketplace engine for high-concurrency. AI recommendations, real-time inventory sync, Stripe payments at scale.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+            <span class="pill pc">Next.js</span><span class="pill pv">TypeScript</span><span class="pill pc">Stripe</span><span class="pill pv">Redis</span>
+          </div>
+          <div><a href="#" class="btn btn-outline proj-btn" style="font-size:11px;padding:10px 22px"><span>View Project →</span></a></div>
+        </div>
+        <!-- Image right -->
+        <div class="proj-img" style="background:linear-gradient(135deg,rgba(6,182,212,.2),rgba(124,58,237,.15));display:flex;align-items:center;justify-content:center;position:relative;min-height:300px">
+          <div style="text-align:center;position:relative;z-index:2">
+            <div class="proj-icon" style="width:72px;height:72px;margin:0 auto 14px;border-radius:18px;background:rgba(6,182,212,.2);border:1px solid rgba(6,182,212,.4);display:flex;align-items:center;justify-content:center">
+              <svg width="32" height="32" fill="none" stroke="#67e8f9" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577;letter-spacing:.2em">E_COMMERCE</div>
+          </div>
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px);pointer-events:none"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(6,182,212,.4),transparent)"></div>
+        </div>
+      </div>
+
+      <!-- P3: pic LEFT, details RIGHT -->
+      <div class="gcard proj-card rl tilt" style="display:grid;grid-template-columns:1fr 1fr;min-height:300px;overflow:hidden;position:relative"><div class="proj-counter">01</div><div class="acc-line" style="right:0"></div>
+        <!-- Image left -->
+        <div class="proj-img" style="background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(6,182,212,.1));display:flex;align-items:center;justify-content:center;position:relative;min-height:300px">
+          <div style="text-align:center;position:relative;z-index:2">
+            <div class="proj-icon" style="width:72px;height:72px;margin:0 auto 14px;border-radius:18px;background:rgba(124,58,237,.25);border:1px solid rgba(124,58,237,.45);display:flex;align-items:center;justify-content:center">
+              <svg width="32" height="32" fill="none" stroke="#a78bfa" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577;letter-spacing:.2em">MGMT_SYSTEM</div>
+          </div>
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px);pointer-events:none"></div>
+          <div style="position:absolute;right:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(124,58,237,.4),transparent)"></div>
+        </div>
+        <!-- Details right -->
+        <div style="padding:40px 36px;display:flex;flex-direction:column;justify-content:center">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <span class="proj-num" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;letter-spacing:.2em">03 // MGMT</span>
+            <span class="pill pv" style="font-size:9px;padding:3px 10px">Management</span>
+          </div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-.02em;line-height:1.1">Gym Management</h3>
+          <p style="color:#b0b0cc;font-size:14px;line-height:1.75;margin-bottom:22px">Centralized hub for membership tracking, automated billing pipelines, and complete resource allocation management.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+            <span class="pill pv">Angular</span><span class="pill pc">Node.js</span><span class="pill pv">PostgreSQL</span>
+          </div>
+          <div><a href="#" class="btn btn-outline proj-btn" style="font-size:11px;padding:10px 22px"><span>View Project →</span></a></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mini 2 cards row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="gcard mini-card rv" style="padding:32px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577;letter-spacing:.2em">04 // DATA</span>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#fff;margin:14px 0 10px;letter-spacing:-.02em">Student Form Hub</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.75;margin-bottom:20px">Real-time validated data collection interface with field synchronization and automated report generation.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill pc">React</span><span class="pill pv">Formik</span><span class="pill pc">MongoDB</span></div>
+      </div>
+      <div class="gcard mini-card rv" style="padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px dashed rgba(124,58,237,.25);background:rgba(124,58,237,.03)">
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+          <svg width="22" height="22" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:8px">More Coming</h3>
+        <p style="color:#555577;font-size:13px;line-height:1.6">Currently building the next project. Stay tuned.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+
+<!-- ═══════ EXPERIENCE ═══════ -->
+<section id="experience" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:48px">
+      <span class="slabel">// MISSION_LOGS</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">My <span class="gt">Journey</span></h2>
+    </div>
+
+    <div style="max-width:760px;margin:0 auto">
+      <div style="position:relative" id="timeline">
+
+        <!-- Vertical line — starts from first dot center -->
+        <div id="tlline" style="position:absolute;left:7px;top:12px;width:2px;bottom:48px;background:linear-gradient(to bottom,#7c3aed,#06b6d4,transparent);transform:scaleY(0);transform-origin:top"></div>
+
+        <div class="tl-item rv" style="display:flex;align-items:flex-start;gap:24px;margin-bottom:48px;padding-left:0">
+          <div class="tl-dot" style="margin-top:4px;flex-shrink:0"></div>
+          <div class="gcard p-6 flex-1">
+            <div style="display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#fff">Asian Solution</h3>
+              <span class="pill pv" style="font-size:9px;padding:3px 10px">ACTIVE</span>
+            </div>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#555577;margin-bottom:16px">Full Stack Developer Intern · 2023</p>
+            <ul style="display:flex;flex-direction:column;gap:8px;color:#b0b0cc;font-size:14px">
+              <li style="display:flex;gap:10px"><span style="color:#7c3aed;flex-shrink:0">▹</span>Optimized automation workflows by 40%</li>
+              <li style="display:flex;gap:10px"><span style="color:#7c3aed;flex-shrink:0">▹</span>Built full-stack dashboards for real-time monitoring</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item rv" style="display:flex;align-items:flex-start;gap:24px;margin-bottom:48px;padding-left:0">
+          <div class="tl-dot" style="border-color:#06b6d4;margin-top:4px;flex-shrink:0"></div>
+          <div class="gcard p-6 flex-1">
+            <div style="display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#fff">Apexcify</h3>
+              <span class="pill pc" style="font-size:9px;padding:3px 10px">COMPLETE</span>
+            </div>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#555577;margin-bottom:16px">Backend Engineer Intern · 2024</p>
+            <ul style="display:flex;flex-direction:column;gap:8px;color:#b0b0cc;font-size:14px">
+              <li style="display:flex;gap:10px"><span style="color:#06b6d4;flex-shrink:0">▹</span>Engineered scalable e-commerce backend clusters</li>
+              <li style="display:flex;gap:10px"><span style="color:#06b6d4;flex-shrink:0">▹</span>Implemented JWT auth across multi-tenant architecture</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item rv" style="display:flex;align-items:flex-start;gap:24px;padding-left:0">
+          <div class="tl-dot" style="border-color:#a78bfa;margin-top:4px;flex-shrink:0"></div>
+          <div class="gcard p-6 flex-1">
+            <div style="display:flex;align-items:start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+              <h3 style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#fff">Decode Labs</h3>
+              <span class="pill pv" style="font-size:9px;padding:3px 10px">ARCHIVED</span>
+            </div>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#555577;margin-bottom:16px">Software Engineer Intern · 2024</p>
+            <ul style="display:flex;flex-direction:column;gap:8px;color:#b0b0cc;font-size:14px">
+              <li style="display:flex;gap:10px"><span style="color:#a78bfa;flex-shrink:0">▹</span>Built high-frequency data ingestion pipelines</li>
+              <li style="display:flex;gap:10px"><span style="color:#a78bfa;flex-shrink:0">▹</span>Automated testing, reduced deployment friction by 25%</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+<!-- ═══════ STATS ═══════ -->
+<section id="stats" style="padding:80px 0">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+
+      <div class="scard rv">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" class="anim-num" data-val="4" data-suffix="+">0</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b0b0cc;letter-spacing:.12em;margin-top:10px">YEARS EXP</div>
+      </div>
+
+      <div class="scard rv">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" class="anim-num" data-val="3" data-suffix="">0</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b0b0cc;letter-spacing:.12em;margin-top:10px">INTERNSHIPS</div>
+      </div>
+
+      <div class="scard rv">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" class="anim-num" data-val="4" data-suffix="">0</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b0b0cc;letter-spacing:.12em;margin-top:10px">PROJECTS</div>
+      </div>
+
+      <div class="scard rv">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.8rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#67e8f9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1" class="anim-num" data-val="20" data-suffix="+">0</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b0b0cc;letter-spacing:.12em;margin-top:10px">TECH STACK</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+<!-- ═══════ PROCESS ═══════ -->
+<section id="process" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:48px">
+      <span class="slabel" style="display:block">// HOW_I_WORK</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">My <span class="gt">Process</span></h2>
+      <p style="color:#b0b0cc;margin-top:16px;max-width:560px;line-height:1.7">From brief to deployed — a structured approach that delivers.</p>
+    </div>
+
+    <!-- Steps grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative" id="process-steps">
+
+      <!-- Animated connector line -->
+      <div style="position:absolute;top:32px;left:calc(12.5%);right:calc(12.5%);height:1px;overflow:hidden;z-index:0">
+        <div id="process-line" style="height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#06b6d4,#7c3aed);transition:width 1.2s ease"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="process-step" style="text-align:center;padding:0 20px 32px;position:relative;z-index:1;opacity:0;transform:translateY(40px)">
+        <div class="proc-circle" style="width:64px;height:64px;border-radius:50%;background:#05050f;border:2px solid rgba(124,58,237,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:border-color .3s,box-shadow .3s;cursor:default">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#a78bfa">01</span>
+          <div style="position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(124,58,237,.15);animation:ping-proc 2s ease-out infinite"></div>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:10px">Discover</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7">Deep dive into requirements, goals, and constraints.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="process-step" style="text-align:center;padding:0 20px 32px;position:relative;z-index:1;opacity:0;transform:translateY(40px)">
+        <div class="proc-circle" style="width:64px;height:64px;border-radius:50%;background:#05050f;border:2px solid rgba(6,182,212,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:border-color .3s,box-shadow .3s;cursor:default">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#67e8f9">02</span>
+          <div style="position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(6,182,212,.15);animation:ping-proc 2s ease-out infinite;animation-delay:.5s"></div>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:10px">Architect</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7">Design system architecture, database schema, and API contracts.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="process-step" style="text-align:center;padding:0 20px 32px;position:relative;z-index:1;opacity:0;transform:translateY(40px)">
+        <div class="proc-circle" style="width:64px;height:64px;border-radius:50%;background:#05050f;border:2px solid rgba(124,58,237,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:border-color .3s,box-shadow .3s;cursor:default">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#a78bfa">03</span>
+          <div style="position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(124,58,237,.15);animation:ping-proc 2s ease-out infinite;animation-delay:1s"></div>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:10px">Build</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7">Agile development with clean code, tests, and daily progress.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="process-step" style="text-align:center;padding:0 20px 32px;position:relative;z-index:1;opacity:0;transform:translateY(40px)">
+        <div class="proc-circle" style="width:64px;height:64px;border-radius:50%;background:#05050f;border:2px solid rgba(6,182,212,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;transition:border-color .3s,box-shadow .3s;cursor:default">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;color:#67e8f9">04</span>
+          <div style="position:absolute;inset:-6px;border-radius:50%;border:1px solid rgba(6,182,212,.15);animation:ping-proc 2s ease-out infinite;animation-delay:1.5s"></div>
+        </div>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:800;color:#fff;margin-bottom:10px">Deploy</h3>
+        <p style="color:#b0b0cc;font-size:13px;line-height:1.7">CI/CD pipeline, cloud deployment, monitoring, and handoff.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+<!-- ═══════ TESTIMONIALS ═══════ -->
+<section id="testimonials" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:48px">
+      <span class="slabel">// KIND_WORDS</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">What They <span class="gt">Say</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+
+      <div class="gcard p-7 rv" style="border-left:2px solid rgba(124,58,237,.5)">
+        <div style="font-size:28px;color:rgba(124,58,237,.5);margin-bottom:16px;font-family:Georgia,serif">"</div>
+        <p style="color:#b0b0cc;font-size:14px;line-height:1.8;margin-bottom:24px">Husnain delivered a production-ready system ahead of schedule. His understanding of both AI and full-stack development is rare — an absolute asset to the team.</p>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#06b6d4);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;color:#fff;flex-shrink:0">AS</div>
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Asian Solution</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577">Tech Lead</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gcard p-7 rv" style="border-left:2px solid rgba(6,182,212,.5)">
+        <div style="font-size:28px;color:rgba(6,182,212,.5);margin-bottom:16px;font-family:Georgia,serif">"</div>
+        <p style="color:#b0b0cc;font-size:14px;line-height:1.8;margin-bottom:24px">Built our entire e-commerce backend from scratch. Clean architecture, zero downtime since launch, and handled Black Friday traffic with ease. Highly recommend.</p>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#7c3aed);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;color:#fff;flex-shrink:0">AP</div>
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Apexcify</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577">Product Manager</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gcard p-7 rv" style="border-left:2px solid rgba(124,58,237,.5)">
+        <div style="font-size:28px;color:rgba(124,58,237,.5);margin-bottom:16px;font-family:Georgia,serif">"</div>
+        <p style="color:#b0b0cc;font-size:14px;line-height:1.8;margin-bottom:24px">The data pipelines Husnain built cut our processing time by 60%. He writes code that's not just functional — it's maintainable and well-documented. A true professional.</p>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#67e8f9);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:800;color:#fff;flex-shrink:0">DL</div>
+          <div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Decode Labs</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#555577">Engineering Director</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="gdiv"></div>
+
+<!-- ═══════ CTA BANNER ═══════ -->
+<section id="cta" style="padding:100px 0">
+  <div class="wrap">
+    <div class="rv">
+      <div style="position:relative;border-radius:24px;overflow:hidden;padding:72px 48px;text-align:center;background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.1));border:1px solid rgba(124,58,237,.25)">
+        <!-- bg glow -->
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(124,58,237,.15),transparent 70%);pointer-events:none"></div>
+        <div style="position:relative;z-index:1">
+          <span class="slabel" style="display:block;text-align:center;margin-bottom:16px">// READY_TO_BUILD</span>
+          <h2 class="dh" style="font-size:clamp(2rem,4vw,3.2rem);margin-bottom:20px">Have a project in mind?</h2>
+          <p style="color:#b0b0cc;font-size:1.05rem;max-width:500px;margin:0 auto 36px;line-height:1.7">Let's turn your idea into a product that ships. I'm available for freelance, contract, and full-time roles.</p>
+          <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+            <a href="#contact" class="btn btn-grad"><span>Start a Project</span>
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="mailto:mhsnraza3718@gmail.com" class="btn btn-outline">mhsnraza3718@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gdiv"></div><div class="gdiv"></div>
+
+<!-- ═══════ CONTACT ═══════ -->
+<section id="contact" style="padding:80px 0">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:48px">
+      <span class="slabel" style="display:block">// OPEN_CHANNEL</span>
+      <h2 class="dh" style="font-size:clamp(2rem,4vw,3.5rem)">Let's <span class="gt">Build.</span></h2>
+      <p style="color:#b0b0cc;margin-top:16px;max-width:560px;line-height:1.7">Open for freelance, collaborations, and full-time roles.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+
+      <!-- Info -->
+      <div style="display:flex;flex-direction:column;gap:16px" class="rl">
+        <div class="gcard p-5" style="display:flex;align-items:center;gap:16px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;margin-bottom:4px">EMAIL</div>
+            <a href="mailto:mhsnraza3718@gmail.com" style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;text-decoration:none;transition:.2s" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color='#fff'">mhsnraza3718@gmail.com</a>
+          </div>
+        </div>
+        <div class="gcard p-5" style="display:flex;align-items:center;gap:16px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" fill="none" stroke="#67e8f9" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;margin-bottom:4px">GITHUB</div>
+            <a href="#" style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff;text-decoration:none;transition:.2s" onmouseover="this.style.color='#67e8f9'" onmouseout="this.style.color='#fff'">github.com/MhsnRaza</a>
+          </div>
+        </div>
+        <div class="gcard p-5" style="display:flex;align-items:center;gap:16px">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="18" height="18" fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;margin-bottom:4px">LOCATION</div>
+            <span style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#fff">Lahore, Pakistan</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="rr">
+        <div class="gb-wrap">
+          <div class="gb-inner p-7">
+            <div style="height:2px;border-radius:99px;background:linear-gradient(90deg,#7c3aed,#06b6d4);margin-bottom:28px;animation:shimmer 2s ease-in-out infinite;background-size:200% auto"></div>
+            <form id="cform" onsubmit="sendMsg(event)" style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div>
+                  <label style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;display:block;margin-bottom:8px">NAME</label>
+                  <input type="text" placeholder="Your name" class="finput" required/>
+                </div>
+                <div>
+                  <label style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;display:block;margin-bottom:8px">EMAIL</label>
+                  <input type="email" placeholder="your@email.com" class="finput" required/>
+                </div>
+              </div>
+              <div>
+                <label style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;display:block;margin-bottom:8px">SUBJECT</label>
+                <input type="text" placeholder="Project / Job / Collab" class="finput"/>
+              </div>
+              <div>
+                <label style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#555577;letter-spacing:.2em;display:block;margin-bottom:8px">MESSAGE</label>
+                <textarea rows="4" placeholder="Tell me about your project..." class="finput" style="resize:none"></textarea>
+              </div>
+              <button type="submit" class="btn btn-grad" style="justify-content:center;width:100%;padding:15px">
+                <span id="sbtn">Send Message</span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<div class="gdiv"></div>
+
+<footer style="padding:40px 0">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <div class="nav-logo">HR<span style="color:#7c3aed">.</span></div>
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#555577">© 2024 Husnain Raza — All rights reserved</p>
+    <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#555577;background:none;border:none;cursor:pointer;transition:.2s;letter-spacing:.1em" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555577'">BACK TO TOP ↑</button>
+  </div>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ── PARTICLES ─────────────────────────────────────────────
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x  = Math.random() * W;
+    this.y  = Math.random() * H;
+    this.vx = (Math.random() - .5) * .3;
+    this.vy = (Math.random() - .5) * .3;
+    this.r  = Math.random() * 1.5 + .5;
+    this.alpha = Math.random() * .5 + .1;
+    this.color = Math.random() > .5 ? '124,58,237' : '6,182,212';
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+function drawLines() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(124,58,237,${.12 * (1 - dist/120)})`;
+        ctx.lineWidth = .5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawLines();
+  requestAnimationFrame(loop);
+}
+loop();
+
+// ── CURSOR PARALLAX ON PARTICLES ─────────────────────────
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  gsap.to('#bg-canvas', { x: (mx - W/2) * -.015, y: (my - H/2) * -.015, duration: 1, ease: 'power2.out' });
+});
+
+// ── NAV SCROLL ────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('solid', scrollY > 60);
+});
+
+// ── MOBILE MENU ───────────────────────────────────────────
+document.getElementById('mbtn').onclick  = () => document.getElementById('mmenu').classList.add('open');
+document.getElementById('mclose').onclick = () => document.getElementById('mmenu').classList.remove('open');
+function cm() { document.getElementById('mmenu').classList.remove('open'); }
+
+// ── SMOOTH SCROLL ─────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { t.scrollIntoView({ behavior: 'smooth' }); cm(); }
+  });
+});
+
+// ── HERO LOAD ANIMATIONS ──────────────────────────────────
+window.addEventListener('load', () => {
+  const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  tl.to('#h-badge', { opacity:1, y:0, duration:.6 }, .3)
+    .to('#h-head',  { opacity:1, y:0, duration:.9 }, .5)
+    .to('#h-sub',   { opacity:1, y:0, duration:.7 }, .8)
+    .to('#h-btns',  { opacity:1, y:0, duration:.6 }, 1.0)
+    .to('#h-term',  { opacity:1, x:0, duration:.9 }, .6);
+
+  gsap.to('.tl', { opacity:1, y:0, duration:.4, stagger:.12, ease:'power2.out', delay:1.1 });
+
+  // Counter animation
+  document.querySelectorAll('.counter').forEach(el => {
+    const target = +el.getAttribute('data-target');
+    gsap.fromTo(el, { innerText: 0 }, {
+      innerText: target, duration: 2, delay: 1.2, ease: 'power2.out', snap: { innerText: 1 },
+      onUpdate() { el.innerText = Math.ceil(+el.innerText) + '+'; }
+    });
+  });
+});
+
+// ── SCROLL REVEALS ────────────────────────────────────────
+gsap.utils.toArray('.rv').forEach(el => {
+  gsap.to(el, { opacity:1, y:0, duration:.9, ease:'power3.out',
+    scrollTrigger: { trigger: el, start:'top 87%', toggleActions:'play none none none' }
+  });
+});
+gsap.utils.toArray('.rl').forEach(el => {
+  gsap.to(el, { opacity:1, x:0, duration:.9, ease:'power3.out',
+    scrollTrigger: { trigger: el, start:'top 87%', toggleActions:'play none none none' }
+  });
+});
+gsap.utils.toArray('.rr').forEach(el => {
+  gsap.to(el, { opacity:1, x:0, duration:.9, ease:'power3.out',
+    scrollTrigger: { trigger: el, start:'top 87%', toggleActions:'play none none none' }
+  });
+});
+
+// ── SKILL BARS + SCROLL ANIMATIONS ───────────────────────
+// Simple intersection observer — no GSAP opacity issues
+const skillObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0) scale(1)';
+
+      // Stagger chips inside this card
+      entry.target.querySelectorAll('.chip').forEach((chip, i) => {
+        chip.style.opacity = '0';
+        chip.style.transform = 'translateY(12px) scale(0.85)';
+        chip.style.transition = `opacity 0.4s ease ${0.2 + i*0.07}s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) ${0.2 + i*0.07}s`;
+        setTimeout(() => {
+          chip.style.opacity = '1';
+          chip.style.transform = 'translateY(0) scale(1)';
+        }, (0.2 + i * 0.07) * 1000);
+      });
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.sk-card').forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(50px) scale(0.96)';
+  card.style.transition = `opacity 0.6s ease ${i * 0.12}s, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${i * 0.12}s`;
+  skillObs.observe(card);
+});
+
+// Full stack card slide in
+const fsCard = document.querySelector('#skillbars > .gcard');
+if (fsCard) {
+  fsCard.style.opacity = '0';
+  fsCard.style.transform = 'translateX(-50px)';
+  fsCard.style.transition = 'opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,1,0.36,1)';
+
+  const fsObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateX(0)';
+
+        // Stagger full stack chips
+        e.target.querySelectorAll('.chip').forEach((chip, i) => {
+          chip.style.opacity = '0';
+          chip.style.transform = 'scale(0.7)';
+          chip.style.transition = `opacity 0.35s ease ${0.3 + i*0.06}s, transform 0.35s cubic-bezier(0.34,1.56,0.64,1) ${0.3 + i*0.06}s`;
+          setTimeout(() => {
+            chip.style.opacity = '1';
+            chip.style.transform = 'scale(1)';
+          }, (0.3 + i * 0.06) * 1000);
+        });
+
+        fsObs.disconnect();
+      }
+    });
+  }, { threshold: 0.2 });
+  fsObs.observe(fsCard);
+}
+
+// Hover lift
+document.querySelectorAll('.sk-card, #skillbars .gcard').forEach(card => {
+  card.addEventListener('mouseenter', () => {
+    card.style.transform = 'translateY(-6px)';
+    card.style.transition = 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease';
+    card.style.boxShadow = '0 20px 60px rgba(124,58,237,0.18)';
+    card.style.borderColor = 'rgba(124,58,237,0.5)';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0)';
+    card.style.boxShadow = '';
+    card.style.borderColor = '';
+  });
+});
+
+// ── TIMELINE LINE ─────────────────────────────────────────
+ScrollTrigger.create({
+  trigger: '#timeline', start: 'top 70%', once: true,
+  onEnter() { gsap.to('#tlline', { scaleY:1, duration:1.8, ease:'power2.out' }); }
+});
+
+// ── 3D TILT ───────────────────────────────────────────────
+document.querySelectorAll('.tilt').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r  = card.getBoundingClientRect();
+    const x  = (e.clientX - r.left - r.width/2)  / (r.width/2);
+    const y  = (e.clientY - r.top  - r.height/2) / (r.height/2);
+    gsap.to(card, { rotateY: x*8, rotateX: -y*8, duration:.3, ease:'power2.out', transformPerspective: 800 });
+  });
+  card.addEventListener('mouseleave', () => {
+    gsap.to(card, { rotateY:0, rotateX:0, duration:.6, ease:'elastic.out(1,.4)' });
+  });
+});
+
+// ── MAGNETIC BUTTONS ─────────────────────────────────────
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    gsap.to(btn, {
+      x: (e.clientX - r.left - r.width/2)  * .25,
+      y: (e.clientY - r.top  - r.height/2) * .25,
+      duration:.3, ease:'power2.out'
+    });
+  });
+  btn.addEventListener('mouseleave', () => {
+    gsap.to(btn, { x:0, y:0, duration:.6, ease:'elastic.out(1,.4)' });
+  });
+});
+
+// ── TYPEWRITER ────────────────────────────────────────────
+const phrases = ['building AI systems.','shipping real products.','from Lahore, Pakistan.','always learning.','open to work.'];
+let pi=0, ci=0, del=false;
+const tw = document.getElementById('tw');
+function type() {
+  const p = phrases[pi];
+  tw.textContent = del ? p.slice(0, --ci) : p.slice(0, ++ci);
+  if (!del && ci === p.length) { del=true; setTimeout(type,1800); return; }
+  if (del && ci === 0) { del=false; pi=(pi+1)%phrases.length; }
+  setTimeout(type, del ? 38 : 65);
+}
+setTimeout(type, 1400);
+
+// ── CONTACT FORM ─────────────────────────────────────────
+function sendMsg(e) {
+  e.preventDefault();
+  const b = document.getElementById('sbtn');
+  b.textContent = 'Sending...';
+  setTimeout(() => { b.textContent = 'Sent ✓'; e.target.reset(); setTimeout(()=>b.textContent='Send Message',3000); }, 1200);
+}
+
+// ── STATS COUNT UP ───────────────────────────────────────
+ScrollTrigger.create({
+  trigger: '#stats', start: 'top 80%', once: true,
+  onEnter() {
+    document.querySelectorAll('.anim-num').forEach((el, i) => {
+      const val = +el.getAttribute('data-val');
+      const sfx = el.getAttribute('data-suffix') || '';
+      setTimeout(() => {
+        gsap.fromTo({v:0},{v:val},{
+          v: val, duration: 2, ease: 'power2.out',
+          onUpdate() { el.textContent = Math.round(this.targets()[0].v) + sfx; }
+        });
+      }, i * 100);
+    });
+  }
+});
+
+// ── ABOUT CARD 3D TILT ────────────────────────────────────
+const aboutCard = document.getElementById('about-card');
+if (aboutCard) {
+  aboutCard.addEventListener('mousemove', e => {
+    const r = aboutCard.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2)  / (r.width/2);
+    const y = (e.clientY - r.top  - r.height/2) / (r.height/2);
+    gsap.to(aboutCard, {
+      rotateY: x * 6, rotateX: -y * 6,
+      duration: .3, ease: 'power2.out',
+      transformPerspective: 900
+    });
+    // Move glow with mouse
+    gsap.to('#about-card .gb-inner', {
+      backgroundImage: `radial-gradient(circle at ${e.clientX - r.left}px ${e.clientY - r.top}px, rgba(124,58,237,.08), transparent 60%)`,
+      duration: .3
+    });
+  });
+  aboutCard.addEventListener('mouseleave', () => {
+    gsap.to(aboutCard, { rotateY:0, rotateX:0, duration:.7, ease:'elastic.out(1,.4)' });
+  });
+}
+
+// Stat number count-up on scroll
+ScrollTrigger.create({
+  trigger: '#about-card', start: 'top 80%', once: true,
+  onEnter() {
+    const vals = [{ el: null, end: 4, sfx: '+' }, { el: null, end: 20, sfx: '+' }, { el: null, end: 3, sfx: '' }];
+    document.querySelectorAll('.stat-num-text').forEach((el, i) => {
+      vals[i].el = el;
+      gsap.fromTo({ v: 0 }, { v: vals[i].end }, {
+        v: vals[i].end, duration: 1.8, ease: 'power2.out',
+        delay: i * 0.15,
+        onUpdate() { el.textContent = Math.round(this.targets()[0].v) + vals[i].sfx; }
+      });
+    });
+  }
+});
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(l => {
+    l.style.color = l.getAttribute('href') === '#'+current ? '#fff' : '#555577';
+  });
+});
+
+// ── PROCESS STEPS — looping animation ────────────────────
+function runProcessAnim() {
+  const line = document.getElementById('process-line');
+  const steps = document.querySelectorAll('.process-step');
+  const circles = document.querySelectorAll('.proc-circle');
+  if (!line || !steps.length) return;
+
+  // Reset
+  line.style.transition = 'none';
+  line.style.width = '0';
+  steps.forEach(s => {
+    s.style.transition = 'none';
+    s.style.opacity = '0';
+    s.style.transform = 'translateY(30px)';
+  });
+
+  // Small delay then animate
+  setTimeout(() => {
+    // Line draws
+    line.style.transition = 'width 1.2s ease';
+    line.style.width = '100%';
+
+    // Steps stagger in
+    steps.forEach((step, i) => {
+      setTimeout(() => {
+        step.style.transition = 'opacity .6s ease, transform .7s cubic-bezier(0.22,1,0.36,1)';
+        step.style.opacity = '1';
+        step.style.transform = 'translateY(0)';
+
+        const circle = step.querySelector('.proc-circle');
+        if (circle) {
+          circle.style.boxShadow = '0 0 28px rgba(124,58,237,.55)';
+          setTimeout(() => { circle.style.boxShadow = ''; }, 700);
+        }
+      }, 200 + i * 280);
+    });
+
+    // After all done, wait then restart
+    setTimeout(runProcessAnim, 200 + 4 * 280 + 2200);
+  }, 80);
+}
+
+ScrollTrigger.create({
+  trigger: '#process-steps',
+  start: 'top 80%',
+  once: true,
+  onEnter() { runProcessAnim(); }
+});
+</script>
+</body>
+</html>
