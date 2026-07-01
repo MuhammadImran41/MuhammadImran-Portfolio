@@ -1,0 +1,76 @@
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden" style="background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(124,58,237,.18) 0%,transparent 60%)">
+  <!-- Orbs -->
+  <div class="orb" style="width:600px;height:600px;background:rgba(124,58,237,.1);top:-200px;left:-150px;animation-delay:0s"></div>
+  <div class="orb" style="width:400px;height:400px;background:rgba(6,182,212,.07);bottom:-100px;right:-100px;animation-delay:3s"></div>
+
+  <!-- Grid lines -->
+  <div class="absolute inset-0 pointer-events-none" style="background-image:linear-gradient(rgba(124,58,237,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.05) 1px,transparent 1px);background-size:80px 80px"></div>
+
+  <div class="wrap relative z-10 w-full pt-28 pb-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <!-- Text col -->
+      <div class="lg:col-span-7 space-y-8">
+        <div id="h-badge" style="opacity:0;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <span class="pill pv">
+            <span style="width:7px;height:7px;border-radius:50%;background:#7c3aed;display:inline-block;animation:blink .8s infinite"></span>
+            Open to opportunities
+          </span>
+          <!-- Social links -->
+          <div style="display:flex;gap:10px">
+            <a href="mailto:mimranofficial432&#64;gmail.com" title="Email" style="width:34px;height:34px;border-radius:8px;background:#0f0f20;border:1px solid #1a1a35;display:flex;align-items:center;justify-content:center;transition:.2s;color:#555577;text-decoration:none">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <a href="https://github.com/MuhammadImran41" target="_blank" title="GitHub" style="width:34px;height:34px;border-radius:8px;background:#0f0f20;border:1px solid #1a1a35;display:flex;align-items:center;justify-content:center;transition:.2s;color:#555577;text-decoration:none">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            </a>
+            <a href="https://linkedin.com/in/muhammad-imran" target="_blank" title="LinkedIn" style="width:34px;height:34px;border-radius:8px;background:#0f0f20;border:1px solid #1a1a35;display:flex;align-items:center;justify-content:center;transition:.2s;color:#555577;text-decoration:none">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div id="h-head" style="opacity:0;transform:translateY(30px)">
+          <p class="slabel">FULL STACK DEVELOPER · ANGULAR · PYTHON · AI INTERFACES</p>
+          <h1 class="dh" style="font-size:clamp(2.2rem,6vw,3.2rem)">
+            Hi, I'm<br/><span class="gt">Muhammad Imran</span>
+          </h1>
+        </div>
+
+        <p id="h-sub" style="opacity:0;transform:translateY(20px);font-size:1.05rem;line-height:1.8;max-width:500px;color:#b0b0cc">
+          Building production-ready interfaces with Angular, Python, and AI —
+          <span id="tw" style="font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#a78bfa">{{currentPhrase}}</span>
+        </p>
+
+        <div id="h-btns" style="opacity:0;display:flex;gap:16px;flex-wrap:wrap">
+          <a href="#projects" class="btn btn-grad"><span>View Projects</span>
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+
+      <!-- Right: Avatar -->
+      <div id="h-term" class="lg:col-span-5 flex flex-col gap-5" style="opacity:0;transform:translateX(40px)">
+        <div id="profile-card-wrap" style="width:100%;perspective:800px;position:relative">
+          <!-- Rotating rings -->
+          <div class="pc-ring pc-ring-1"></div>
+          <div class="pc-ring pc-ring-2"></div>
+          <!-- Corner glows -->
+          <div class="pc-glow pc-glow-tl"></div>
+          <div class="pc-glow pc-glow-br"></div>
+          <!-- Floating dots -->
+          <div class="pc-dot pc-dot-1"></div>
+          <div class="pc-dot pc-dot-2"></div>
+          <div class="pc-dot pc-dot-3"></div>
+          <div id="profile-card" style="width:100%;background:#0f0f20;border:1px solid rgba(124,58,237,.3);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(124,58,237,.2);transform:translateX(-120px) rotateY(-25deg) rotateZ(-8deg);opacity:0;">
+            <div style="height:3px;background:linear-gradient(90deg,#7c3aed,#06b6d4)"></div>
+            <div style="position:relative;width:100%;height:440px;overflow:hidden;background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(6,182,212,.15))">
+              <img id="profile-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Muhammad Imran" style="width:100%;height:100%;object-fit:cover;object-position:center center;filter:grayscale(20%);transition:filter .4s" onerror="this.src='https://ui-avatars.com/api/?name=Muhammad+Imran&size=400&background=7c3aed&color=fff&bold=true'" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(15,15,32,.4) 0%,transparent 40%)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

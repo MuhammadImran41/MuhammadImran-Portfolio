@@ -1,0 +1,32 @@
+<nav id="nav" [class.solid]="isScrolled">
+  <a href="#hero" class="nav-logo">MI<span>.</span></a>
+  <div class="hidden md:flex items-center gap-8">
+    <a (click)="scrollTo('about')" class="nav-link">ABOUT</a>
+    <a (click)="scrollTo('services')" class="nav-link">SERVICES</a>
+    <a (click)="scrollTo('skills')" class="nav-link">SKILLS</a>
+    <a (click)="scrollTo('projects')" class="nav-link">WORK</a>
+    <a (click)="scrollTo('experience')" class="nav-link">JOURNEY</a>
+    <a (click)="scrollTo('contact')" class="nav-link">CONTACT</a>
+  </div>
+  <a href="mailto:mimranofficial432&#64;gmail.com" class="hidden md:inline-flex btn btn-grad">HIRE ME</a>
+  <button (click)="toggleMenu()" class="md:hidden text-white p-2" aria-label="Menu">
+    <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M3 6h18M3 12h18M3 18h18"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mmenu" [class.open]="menuOpen">
+  <button (click)="toggleMenu()" class="absolute top-7 right-7 text-white">
+    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+  <a (click)="scrollTo('about'); toggleMenu()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem">ABOUT</a>
+  <a (click)="scrollTo('services'); toggleMenu()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem">SERVICES</a>
+  <a (click)="scrollTo('skills'); toggleMenu()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem">SKILLS</a>
+  <a (click)="scrollTo('projects'); toggleMenu()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem">WORK</a>
+  <a (click)="scrollTo('experience'); toggleMenu()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem">JOURNEY</a>
+  <a (click)="scrollTo('contact'); toggleMenu()" class="font-display text-4xl text-white hover:text-vl transition-colors" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem">CONTACT</a>
+</div>
